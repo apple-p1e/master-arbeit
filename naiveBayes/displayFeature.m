@@ -1,4 +1,4 @@
-function [barData, keys] = displayFeature(feature)
+function displayFeature(feature)
     barData = [];
     data = feature.dict;
     keys = sort(str2double(fieldnames(data)));

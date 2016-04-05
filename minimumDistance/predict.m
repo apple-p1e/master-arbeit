@@ -12,7 +12,7 @@ function res = predict(carsC, trucksC, X, f)
     [_, res] = min([func(carsC) func(trucksC)], [], 2);
     
     function distance = calcEuclidean(point)
-        distance = sqrt(sum(bsxfun(@minus, point, X)'.^2))';
+        distance = sqrt(sum(bsxfun(@minus, point, X).^2, 2));
     end
 
     function distance = calcMahalanobis(point)

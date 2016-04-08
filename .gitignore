@@ -1,4 +1,8 @@
 *.pdf
 *.png
 *.mat
+*.log
+*.aux
+*.fig
+test.*
 articles

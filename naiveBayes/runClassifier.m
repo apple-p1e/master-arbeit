@@ -2,7 +2,7 @@
 clear ; close all; clc
 
 % Load training data
-load('features.mat')
+load('../data/features_new.mat')
 
 % Train and predict on the training data
 classifier = trainClassifier(X, y);

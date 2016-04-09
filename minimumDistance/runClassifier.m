@@ -8,8 +8,8 @@ load('../data/features_new.mat')
 printf('Running [Minimum Distance]\n');
 [cC, tC] = trainClassifier(X, y);
 printf('Finished training...\n');
-dist = yes_or_no('Use Mahalanobis distance (otherwise Euclidean)? ');
-pred = predict(cC, tC, X, dist);
+distance = yes_or_no('Use Mahalanobis distance (otherwise Euclidean)? ');
+pred = predict(cC, tC, X, distance);
 printf('Finished prediction...\n');
 % Sort result and display it
 [tc, fc, tt, ft] = sortResult(X, y, pred);

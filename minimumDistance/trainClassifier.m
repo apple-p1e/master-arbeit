@@ -5,4 +5,3 @@ function [carsM, trucksM] = trainClassifier(X, y)
     carsM = mean(X(1:len/2, :));
     trucksM = mean(X(len/2+1:len, :));
 end
-

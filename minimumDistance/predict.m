@@ -1,12 +1,12 @@
 function res = predict(carsC, trucksC, X, f)
 % Predict class using Euclidean or Mahalanobis distance.
 % Usage: res = predict(carsC, trucksC, X, f)
-% f == 1 for Euclidean distance, else for Mahalanobis
+% f == 1 for Mahalanobis distance, else for Euclidean
     
     if f == 1
-        func = @(x) calcEuclidean(x);
-    else
         func = @(x) calcMahalanobis(x);
+    else
+        func = @(x) calcEuclidean(x);
     end
 
     [_, res] = min([func(carsC) func(trucksC)], [], 2);

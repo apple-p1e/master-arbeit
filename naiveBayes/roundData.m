@@ -1,4 +1,7 @@
 function data = roundData(x, bounds)
+% Round the input data to the closest value from the bounds.
+% Usage: data = roundData(x, bounds)
+
     data = [];
     medians = [];
     lenBounds = length(bounds);
@@ -8,12 +11,12 @@ function data = roundData(x, bounds)
     end
     for i = 1:lenX
         if x(i) > medians(lenBounds-1)
-            data = [data bounds(lenBounds)];
+            data = [data; bounds(lenBounds)];
             continue
         end
         for k = 1:(lenBounds-1)
             if x(i) <= medians(k)
-                data = [data bounds(k)];
+                data = [data; bounds(k)];
                 break
             end
         end

@@ -1,4 +1,8 @@
 function displayFeature(feature)
+% Plot a bar chart for probability distribution of the feature.
+% Feature must be a sctuct type.
+% Usage: displayFeature(feature)
+
     barData = [];
     data = feature.dict;
     keys = sort(str2double(fieldnames(data)));

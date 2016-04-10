@@ -1,4 +1,7 @@
 function features = trainClassifier(X, y)
+% Returns array with structures containing probability distribution of the
+% feature.
+% Usage: features = trainClassifier(X, y)
 
     CARS = 1;
     TRUCKS = 2;

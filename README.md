@@ -26,6 +26,7 @@ set, but I'm looking forward to getting bigger data set which I could split in a
 appropriate way.
 
 In the table below is represented accuracy of each algorithm.
+
 | Algorithm | Signal | Fourier |
 | --------- | -----: | ------: |
 | MD (Mahalanobis) | 67.22% | 86.11% |

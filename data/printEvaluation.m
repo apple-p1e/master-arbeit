@@ -6,7 +6,7 @@ function printEvaluation(tc, tt, fc, ft)
     f = @(x) sprintf('%d', x);
     a = {'' 'Cars' 'Trucks'; ...
          'True' f(tc) f(tt); ...
-         'False' f(fc) f(ft)};
+         'False' f(ft) f(fc)};
     printMatrix(a);
 
 
@@ -16,9 +16,9 @@ function printEvaluation(tc, tt, fc, ft)
     ppv = tc / (tc + ft);
     npv = tt / (tt + fc);
     f1 = 2*ppv*rec / (ppv+rec);
-    b = {'Accuracy' f(acc); 'Recall' f(rec); ...
+    a = {'Accuracy' f(acc); 'Recall' f(rec); ...
          'Cars prediction value' f(ppv);...
          'Trucks prediction value' f(npv);...
          'F1' f(f1)};
-    printMatrix(b);
+    printMatrix(a);
 end

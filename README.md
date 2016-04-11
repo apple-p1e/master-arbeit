@@ -19,3 +19,16 @@ classifier, so it seems like OOP paradigm fits well here, but when I started
 to implement this, I realized it is not worth it.
 
 And also I am writing here my master thesis report in LaTeX.
+
+### Current result
+Unfortunately, for now I have tested algorithms' work only on the training data
+set, but I'm looking forward to getting bigger data set which I could split in a
+appropriate way.
+
+In the table below is represented accuracy of each algorithm.
+| Algorithm | Signal | Fourier |
+| --------- | -----: | ------: |
+| MD (Mahalanobis) | 67.22% | 86.11% |
+| MD (Euclidean) | 73.89% | 84.44% |
+| Neural network | 77.78% | 93.33% |
+| Naive Bayes | 92.78% | 97.22% |

@@ -5,5 +5,7 @@
 *.aux
 *.fig
 *.txt
+*.blg
+*.bbl
 test.*
 articles

@@ -1,4 +1,4 @@
-function g = sigmoid(z)
+function g = sigmoid(c, z)
 % Compute sigmoid function.
 % Usage: g = sigmoid(z)
 

@@ -1,7 +1,5 @@
-function [J grad] = nnCostFunction(nn_params, ...
-                                   input_layer_size, ...
-                                   hidden_layer_size, ...
-                                   num_labels, ...
+function [J grad] = nnCostFunction(c, nn_params, input_layer_size, ...
+                                   hidden_layer_size, num_labels, ...
                                    X, y, lambda)
 % Computes the cost and gradient of the neural network.
 % Usage: [J grad] = nnCostFunction(nn_params, hidden_layer_size, num_labels, ...
@@ -19,9 +17,9 @@ function [J grad] = nnCostFunction(nn_params, ...
 
     a1 = [ones(m, 1) X];
     z2 = a1 * Theta1';
-    a2 = [ones(m, 1) sigmoid(z2)];
+    a2 = [ones(m, 1) sigmoid(c, z2)];
     z3 = a2 * Theta2';
-    a3 = sigmoid(z3);
+    a3 = sigmoid(c, z3);
 
     y2 = zeros(m, num_labels);
     for i = 1:m,
@@ -33,7 +31,7 @@ function [J grad] = nnCostFunction(nn_params, ...
         sum([Theta2(:, 2:(hidden_layer_size + 1)).^2](:)))/(2*m);
 
     b3 = a3 - y2;
-    b2 = b3 * Theta2(:, 2:end) .* sigmoidGradient(z2);
+    b2 = b3 * Theta2(:, 2:end) .* sigmoidGradient(c, z2);
 
     delta2 = b3' * a2;
     delta1 = b2' * a1;

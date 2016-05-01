@@ -1,15 +1,20 @@
-function res = predict(carsC, trucksC, X, f)
+function res = predict(classifier, X)
 % Predict class using Euclidean or Mahalanobis distance.
-% Usage: res = predict(carsC, trucksC, X, f)
-% f == 1 for Mahalanobis distance, else for Euclidean
-    
-    if f == 1
+% Usage: res = predict(carsC, trucksC, X)
+
+    c = classifier;
+    centroids = c.('centroids');
+    if c.('mahalanobis')
         func = @(x) calcMahalanobis(x);
     else
         func = @(x) calcEuclidean(x);
     end
+    distances = [];
+    for i = 1:size(centroids, 1)
+        distances = [distances func(centroids(i,:))];
+    end
 
-    [_, res] = min([func(carsC) func(trucksC)], [], 2);
+    [_, res] = min(distances, [], 2);
     
     function distance = calcEuclidean(point)
         distance = sqrt(sum(bsxfun(@minus, point, X).^2, 2));

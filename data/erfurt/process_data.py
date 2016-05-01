@@ -106,6 +106,10 @@ def _read_data(filename, signal):
             res.append([timestr, row[idx]])
     return res
 
+def _save_data(filename, result):
+    with open(filename, 'w') as f:
+        f.write('\n'.join(result))
+
 
 class bcolors:
     PURPLE = '\033[95m'
@@ -161,7 +165,8 @@ def _saved(path):
 def main(loadpath=None):
 
     # constants/messages
-    COMMANDS = ['fc', 'bc', 'fs', 'bs', 'add', 'remove', 'break', 'save']
+    COMMANDS = [
+        'fc', 'bc', 'fs', 'bs', 'add', 'remove', 'break', 'save', 'help']
     INPUT = 'Input command: '
     FILENAME = 'Input filename: '
     REMINDER = '''
@@ -172,6 +177,7 @@ Available commands:
 [add]: approve matching and add a data
 [remove]: remove last added data
 [break]: leave this business
+[save]: save current state and exit
 ==========================================='''
     
     # getting data and initializing data processor
@@ -193,7 +199,6 @@ Available commands:
             data_processor.class_idx, data_processor.cur_class[0]))
         command = input(INPUT)
         while command not in COMMANDS:
-            print(REMINDER)
             command = input(INPUT)
         if command == 'fs':
             try:
@@ -241,6 +246,8 @@ Available commands:
             data_processor.save(filename)
             print(_saved(filename))
             return
+        elif command == 'help':
+            print(REMINDER)
         else:
             break
     return data_processor

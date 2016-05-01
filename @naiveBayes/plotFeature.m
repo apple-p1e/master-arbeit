@@ -1,15 +1,15 @@
-function displayFeature(feature)
+function plotFeature(classifier, idx)
 % Plot a bar chart for probability distribution of the feature.
 % Feature must be a sctuct type.
-% Usage: displayFeature(feature)
-
+% Usage: displayFeature(classifier, idx)
+    
+    c = classifier;
+    feature = classifier.('features'){idx};
     barData = [];
-    data = feature.dict;
-    keys = sort(str2double(fieldnames(data)));
+    keys = sort(str2double(fieldnames(feature)));
     for i = 1:length(keys)
-        barData = [barData; data.(sprintf('%.2f', keys(i)))];
+        barData = [barData; feature.(sprintf('%f', keys(i)))];
     end
     bar(barData);
-    title(feature.name);
     set(gca,'XTickLabel', keys);
 end

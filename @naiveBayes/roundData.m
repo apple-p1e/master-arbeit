@@ -1,4 +1,4 @@
-function data = roundData(x, bounds)
+function data = roundData(c, x, bounds)
 % Round the input data to the closest value from the bounds.
 % Usage: data = roundData(x, bounds)
 

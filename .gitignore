@@ -7,5 +7,7 @@
 *.txt
 *.blg
 *.bbl
+*.csv
 test.*
 articles
+__pycache__

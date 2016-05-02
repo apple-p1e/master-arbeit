@@ -17,8 +17,7 @@ switch (choice)
         Mahalanobis = true;
         classifier = minimumDistance(Mahalanobis);
     case 3
-        classifier = kMeans();
-        train = @(c, x, _) train(c, x, 2);
+        classifier = kMeans(2);
     case 4
         classifier = naiveBayes();
     case 5

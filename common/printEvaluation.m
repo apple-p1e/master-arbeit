@@ -6,7 +6,7 @@ function printEvaluation(tc, tt, fc, ft)
     f = @(x) sprintf('%d', x);
     a = {'' 'Cars' 'Trucks'; ...
          'True' f(tc) f(tt); ...
-         'False' f(ft) f(fc)};
+         'False' f(fc) f(ft)};
     printMatrix(a);
 
 

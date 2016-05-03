@@ -1,38 +1,50 @@
 # Master Arbeit
 
-Actually, this is my sandbox where I am trying to do my master thesis. 
-I am playing with machine learning in Octave and have implemented the
-following classifiers:
+### General information
+
+Actually, this is my sandbox where I am trying to do my master thesis with the
+topic "Development of a classification system for the identification of vehicle
+classes". For now, I have implemented the following classifiers:
+
 * Minimum distance
+* K-Means
 * Naive Bayes
 * Neural network
 
-Each classifier has own train and predict functions. There are also
-run-scripts to run a classifier, but before you do this you need to
-specify couple of things:
-* `load('filename')` to load train/test data sets. It is supposed that
-data set is represented by a matrix of features X \[m × 4\] and corresponding
-vector of class labels y \[m × 1\].
-* `addpath('path_to_data_folder')` because data folder includes functions to
-evaluate and print result of prediction. These functions are common for every
-classifier, so it seems like OOP paradigm fits well here, but when I started
-to implement this, I realized it is not worth it.
+Each classifier represents an Octave's class with two common methods:
 
-And also I am writing here my master thesis report in LaTeX.
+* `classifier = train(classifier, X, y)`
+* `labels = predict(classifier, X)`
+
+Besides that, there are many common function, which I placed in the
+corresponding folder, thus add this folder to the path with the command
+`addpath('path_to_folder')` at first.
+
+Also there is a `runDemonstation.m` script that asks you to choose a
+classifier, then trains and makes the prediction on the same data set,
+prints evaluation, and asks whether to plot 3D scatter (it projects data to
+3D with PCA algorithm). You only need to specify a file with X and y to load.
+
+Report is written in LaTeX (in progress).
 
 ### Current result
-Unfortunately, for now I have tested algorithms' work only on the training data
-set, but I'm looking forward to getting bigger data set which I could split in a
-appropriate way.
 
-In the table below is represented accuracy of each algorithm.
+Below are tests for the different sets of features (in german abbreviation):
 
-| Algorithm | Signal | Fourier |
-| --------- | -----: | ------: |
-| MD (Mahalanobis) | 67.22% | 86.11% |
-| MD (Euclidean) | 73.89% | 84.44% |
-| Neural network | 77.78% | 93.33% |
-| Naive Bayes | 92.78% | 97.22% |
+1. XMAX, XMIN, XSPA, XGRW, XEFF, FFAK
+2. XGRW, XMAX, XMIN, XSPA, XEFF, FFAK, GAM1 signal, GAM2 signal
+3. XGRW, XMAX, XMIN, XSPA, XEFF, FFAK, MOM2, MOM3, MOM4, GAM1 signal, GAM2 signal
+4. XGRW, XMAX, XMIN, XSPA, XEFF, FFAK, Positive Hills, Negative Hills
+5. GAM1 signal, GAM2 signal, Positive Hills, Negative Hills
+6. GAM1 signal, GAM2 Fourier, Positive Hills, Negative Hills
+7. GAM1 Fourier, GAM2 Fourier, Positive Hills, Negative Hills
+8. GAM1 Fourier, GAM2 Fourier, Positive Hills, Negative Hills, XSPA
+9. GAM2 Fourier, Positive Hills, Negative Hills
+10. GAM1 Fourier, GAM2 Fourier, Positive Hills
+11. GAM1 Fourier, GAM2 Fourier, Negative Hills
+12. GAM1 Fourier, Positive Hills, Negative Hills
+13. Positive Hills, Negative Hills
+14. GAM1 Fourier, GAM2 Fourier
 
 Accuracy for different feature sets:
 
@@ -43,3 +55,5 @@ Accuracy for different feature sets:
 | K-Means | 61.67 | 64.44 | 64.44 | 60.00 | 62.22 | 73.89 | 75.00 | 75.00 | 73.89 | 75.56 | 76.11 | 75.00 | 58.33 | 75.00 |
 | Naive Bayes | 100.00 | 100.00 | 100.00 | 100.00 | 98.89 | 98.89 | 98.89 | 99.44 | 82.78 | 100.00 | 100.00 | 82.78 | 72.78 | 100.00 |
 | Neural network | 75.56 | 84.44 | 83.89 | 86.67 | 79.44 | 93.33 | 93.89 | 92.22 | 93.89 | 93.33 | 93.33 | 93.89 | 75.00 | 93.33 |
+
+![Features comparison](/images/merkmalsverglech.png)

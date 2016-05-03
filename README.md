@@ -4,7 +4,7 @@
 
 Actually, this is my sandbox where I am trying to do my master thesis with the
 topic "Development of a classification system for the identification of vehicle
-classes". For now, I have implemented the following classifiers:
+classes". For now, I have implemented the following algorithms:
 
 * Minimum distance
 * K-Means
@@ -29,7 +29,8 @@ Report is written in LaTeX (in progress).
 
 ### Current result
 
-Below are tests for the different sets of features (in german abbreviation):
+There was made an attempt to define the best feature set for classification.
+Evaluation is represented as accuracy, in %.
 
 1. XMAX, XMIN, XSPA, XGRW, XEFF, FFAK
 2. XGRW, XMAX, XMIN, XSPA, XEFF, FFAK, GAM1 signal, GAM2 signal
@@ -46,8 +47,6 @@ Below are tests for the different sets of features (in german abbreviation):
 13. Positive Hills, Negative Hills
 14. GAM1 Fourier, GAM2 Fourier
 
-Accuracy for different feature sets:
-
 | Algorithm | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14|
 | --------- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | MD (Euclidean) | 72.22 | 71.67 | 71.11 | 72.78 | 70.00 | 80.56 | 85.00 | 84.44 | 80.56 | 86.11 | 85.56 | 83.89 | 72.22 | 86.11 |
@@ -56,4 +55,51 @@ Accuracy for different feature sets:
 | Naive Bayes | 100.00 | 100.00 | 100.00 | 100.00 | 98.89 | 98.89 | 98.89 | 99.44 | 82.78 | 100.00 | 100.00 | 82.78 | 72.78 | 100.00 |
 | Neural network | 75.56 | 84.44 | 83.89 | 86.67 | 79.44 | 93.33 | 93.89 | 92.22 | 93.89 | 93.33 | 93.33 | 93.89 | 75.00 | 93.33 |
 
-![Features comparison](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/merkmalsvergleich.png)
+![Features comparison](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/<merkmalsvergleich class="png"></merkmalsvergleich>)
+
+**As a result**, the 7th feature set was chosen. Further this set is used.
+
+##### Minimum distance (Euclidean metric)
+
+|       | Cars | Trucks |
+| ----: | ---: | -----: |
+| True  | 90 | 63 |
+| False | 27 | 0 |
+
+![Euclidean metric](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dEuclid.png)
+
+##### Minimum distance (Mahalanobis distance)
+
+|       | Cars | Trucks |
+| ----: | ---: | -----: |
+| True  | 84 | 60 |
+| False | 30 | 6 |
+
+![Mahalanobis distance](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dMahalanobis.png)
+
+##### K-Means
+
+|       | Cars | Trucks |
+| ----: | ---: | -----: |
+| True  | 84 | 60 |
+| False | 30 | 6 |
+
+![K Means](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dKMeans.png)
+
+##### Naive Bayes
+
+|       | Cars | Trucks |
+| ----: | ---: | -----: |
+| True  | 88 | 90 |
+| False | 0 | 2 |
+
+![Naive Bayes](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dNaiveBayes.png)
+
+##### Neural network
+
+|       | Cars | Trucks |
+| ----: | ---: | -----: |
+| True  | 85 | 84 |
+| False | 6 | 5 |
+
+![Neural network](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dNeuralNetwork.png)

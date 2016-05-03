@@ -21,16 +21,17 @@ corresponding folder, thus add this folder to the path with the command
 `addpath('path_to_folder')` at first.
 
 Also there is a `runDemonstation.m` script that asks you to choose a
-classifier, then trains and makes the prediction on the same data set,
-prints evaluation, and asks whether to plot 3D scatter (it projects data to
-3D with PCA algorithm). You only need to specify a file with X and y to load.
+classifier, then trains and makes the prediction on the same data set, prints
+evaluation, and asks whether to plot 3D scatter (it projects data to 3D
+with PCA algorithm). You only need to specify a file with *X* and *y* to load.
 
 Report is written in LaTeX (in progress).
 
 ### Current result
 
 There was made an attempt to define the best feature set for classification.
-Evaluation is represented as accuracy, in %.
+Evaluation is represented as accuracy, in %. As a result, the **7th** feature
+set was chosen. Further this set is used.
 
 1. XMAX, XMIN, XSPA, XGRW, XEFF, FFAK
 2. XGRW, XMAX, XMIN, XSPA, XEFF, FFAK, GAM1 signal, GAM2 signal
@@ -57,14 +58,12 @@ Evaluation is represented as accuracy, in %.
 
 ![Features comparison](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/merkmalsvergleich.png)
 
-**As a result**, the 7th feature set was chosen. Further this set is used.
-
 ##### Minimum distance (Euclidean metric)
 
 |       | Cars | Trucks |
 | ----: | ---: | -----: |
-| True  | 90 | 63 |
-| False | 27 | 0 |
+| **True**  | 90 | 63 |
+| **False** | 27 | 0 |
 
 ![Euclidean metric](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dEuclid.png)
 
@@ -72,8 +71,8 @@ Evaluation is represented as accuracy, in %.
 
 |       | Cars | Trucks |
 | ----: | ---: | -----: |
-| True  | 84 | 60 |
-| False | 30 | 6 |
+| **True**  | 84 | 60 |
+| **False** | 30 | 6 |
 
 ![Mahalanobis distance](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dMahalanobis.png)
 
@@ -81,8 +80,8 @@ Evaluation is represented as accuracy, in %.
 
 |       | Cars | Trucks |
 | ----: | ---: | -----: |
-| True  | 84 | 60 |
-| False | 30 | 6 |
+| **True**  | 84 | 60 |
+| **False** | 30 | 6 |
 
 ![K Means](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dKMeans.png)
 
@@ -90,8 +89,8 @@ Evaluation is represented as accuracy, in %.
 
 |       | Cars | Trucks |
 | ----: | ---: | -----: |
-| True  | 88 | 90 |
-| False | 0 | 2 |
+| **True**  | 88 | 90 |
+| **False** | 0 | 2 |
 
 ![Naive Bayes](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dNaiveBayes.png)
 
@@ -99,7 +98,7 @@ Evaluation is represented as accuracy, in %.
 
 |       | Cars | Trucks |
 | ----: | ---: | -----: |
-| True  | 85 | 84 |
-| False | 6 | 5 |
+| **True**  | 85 | 84 |
+| **False** | 6 | 5 |
 
 ![Neural network](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/3dNeuralNetwork.png)

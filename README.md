@@ -55,7 +55,7 @@ Evaluation is represented as accuracy, in %.
 | Naive Bayes | 100.00 | 100.00 | 100.00 | 100.00 | 98.89 | 98.89 | 98.89 | 99.44 | 82.78 | 100.00 | 100.00 | 82.78 | 72.78 | 100.00 |
 | Neural network | 75.56 | 84.44 | 83.89 | 86.67 | 79.44 | 93.33 | 93.89 | 92.22 | 93.89 | 93.33 | 93.33 | 93.89 | 75.00 | 93.33 |
 
-![Features comparison](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/<merkmalsvergleich class="png"></merkmalsvergleich>)
+![Features comparison](https://raw.githubusercontent.com/apple-p1e/master-arbeit/master/images/merkmalsvergleich.png)
 
 **As a result**, the 7th feature set was chosen. Further this set is used.
 

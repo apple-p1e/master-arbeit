@@ -13,7 +13,7 @@ function classifier = train(c, X, y)
             classifier = computeCentroids(classifier, X, idx, K);
         end
         [tc, fc, tt, ft] = evaluateResult(X, y, idx);
-        acc = (rows(tc) + rows(tt)) / rows([tc; fc; tt; ft])
+        acc = (rows(tc) + rows(tt)) / rows([tc; fc; tt; ft]);
         if acc > accuracy
             accuracy = acc;
             centroids = classifier.('centroids');

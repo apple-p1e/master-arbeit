@@ -3,9 +3,9 @@ function c = train(classifier, X, y)
 % Usage: [Theta1, Theta2] = trainClassifier(classifier, X, y)
     
     c = classifier;
-    input_layer_size = c.('input_layer_size');
+    input_layer_size = size(X, 2);
     hidden_layer_size = c.('hidden_layer_size');
-    num_labels = c.('num_labels');
+    num_labels = length(unique(y));
 
     initial_Theta1 = initWeights(c, input_layer_size, hidden_layer_size);
     initial_Theta2 = initWeights(c, hidden_layer_size, num_labels);

@@ -25,7 +25,7 @@ function res = testFeatureSet(filename)
     mdm = minimumDistance(true);
     km = kMeans(2);
     nb = naiveBayes();
-    nn = neuralNetwork(size(X, 2), 5, 2);
+    nn = neuralNetwork(5);
 
     classifiers = {mde, mdm, km, nb, nn};
 

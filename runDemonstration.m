@@ -21,10 +21,8 @@ switch (choice)
     case 4
         classifier = naiveBayes();
     case 5
-        inputLayer = 4;
-        hiddenLayer = 5;
-        outputLayer = 2;
-        classifier = neuralNetwork(inputLayer, hiddenLayer, outputLayer);
+        hiddenLayerSize = 5;
+        classifier = neuralNetwork(hiddenLayerSize);
 end
 
 classifier = train(classifier, X, y);

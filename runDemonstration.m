@@ -1,8 +1,8 @@
-% Initialization
+    % Initialization
 clear ; close all;
 
 % Load training data
-load('data/merkmale.mat')
+load('data/merkmale7.mat')
 [X, mu, sigma] = normalizeFeatures(X);
 
 options = {'Minimum Distance (Euclid)', 'Minimum Distance (Mahalanobis)', ...
@@ -35,5 +35,10 @@ printf('Finished prediction...\n');
 printEvaluation(tc, tt, fc, ft);
 
 if yes_or_no('Do you want to plot result? ')
-    plot3DResult(tc, fc, tt, ft);
+    if (strcmp (class (classifier), 'kMeans')) || (strcmp (class (classifier), 'minimumDistance'))
+        centroids = getCentroids(classifier);
+    else
+        centroids = [];
+    end
+    plotResult({tc, fc, tt, ft}, centroids);
 end

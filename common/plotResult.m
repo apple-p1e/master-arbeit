@@ -1,43 +1,39 @@
-function plotResult(tc, fc, tt, ft, cC, tC)
-% Takes labled data and centers of classes and displays it.
-% Usage: plotResult(tc, fc, tt, ft, cC, tC)
-% tc == true cars; fc == false cars
-% tt == true trucks; ft == false trucks
-% cC == cars center; tC == trucks center
-    
-    F2 = 2; F3 = 3; F4 = 4;                                  % feature's numbers
+function plotResult(data, centroids)
     COL1 = [0.1 0.1 0.9]; COL2 = [1.0 .05 .05];            % blue and red colors
     COL3 = [0.1 0.8 0.9]; COL4 = [1.0 0.8 0.1];         % cyan and yellow colors
-    PSIZE = 8;                                                  % size of points
+    colors = {COL3, COL2, COL4, COL1};
+    PSIZE = 8;
+    
+    temp = [data{1}; data{2}; data{3}; data{4}];
+    [U, S] = pca(temp);
 
+    if size(temp, 2) > 2
+        K = 3;
+        func = @(x, k) scatter3(x(:,1), x(:,2), x(:,3), PSIZE, k, '*');
+    else
+        K = 2;
+        func = @(x, k) scatter(x(:,1), x(:,2), PSIZE, k, '*');
+    end
+    
     figure; hold on;
 
-    % xt = @(t) p(2) * t + cC(2);
-    % yt = @(t) p(3) * t + cC(3);
-    % zt = @(t) p(4) * t + cC(4);
-    % t = [-0.3 3.5];
-    % plot3(xt(t), yt(t), zt(t));
-
-    % display vehicles
-    if size(tc) scatter3(tc(:,F2), tc(:,F3), tc(:,F4), PSIZE, COL3, '*'); end
-    if size(fc) scatter3(fc(:,F2), fc(:,F3), fc(:,F4), PSIZE, COL1, '*'); end
-    if size(tt) scatter3(tt(:,F2), tt(:,F3), tt(:,F4), PSIZE, COL4, '*'); end
-    if size(ft) scatter3(ft(:,F2), ft(:,F3), ft(:,F4), PSIZE, COL2, '*'); end
-
-    if nargin == 6
-        c = [cC; tC];                                             % classes' centers
-        scatter3(c(:,2), c(:,3), c(:,4), 15, 'black', 'x');        % display centers
-
-        %mid = (cC+tC)./2; p = tC - cC;                % middle point between centers
-        %_ = [tc; fc; tt; ft];                       % getting all data back together
-        %minPos = min(_(:,3)); maxPos = max(_(:,3));          % boundaries for y axis
-        %minNeg = min(_(:,4)); maxNeg = max(_(:,4));          % boundaries for z axis
-        %[ys zs] = meshgrid(minPos:1:maxPos, minNeg:1:maxNeg);       % y and z points
-        %xs = -(p(3)*(ys-mid(3)) + p(4)*(zs-mid(4))) / p(2) + mid(2);      % x points
-        %mesh(xs, ys, zs, ones(size(zs)));                 % display dividing surface
+    for i = 1:4
+        d = data{i};
+        if size(d)
+            dz = projectData(d, U, K);
+            color = colors{i};
+            func(dz, color);
+        end        
     end
 
-    xlabel('gam2'); ylabel('pos'); zlabel('neg');
-    hold off;
+    if centroids
+        cz = projectData(centroids, U, K);
+        if K == 3
+            scatter3(cz(:,1), cz(:,2), cz(:,3), 15, 'black', 'x');
+        else
+            scatter(cz(:,1), cz(:,2), 15, 'black', 'x');
+        end
+    end
 
+    hold off;
 end

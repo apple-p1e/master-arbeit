@@ -1,0 +1,108 @@
+\chapter{Merkmalsbeschreibung}
+
+\paragraph{}
+Das Zeitsignal ist aus dem Sensor noch nicht f\"ur die Klassifikation verwendbar. Es muss deshalb zun\"achst die Transformation in geeignete Kennfunktionen erfolgen. Die Aufgabe der Merkmalsbildung besteht dann in der Erstellung eines Merkmalsvektors aus dem Zeitbereich und den verschiedenen Kennfunktionen, was gleichbedeutend mit Transformation der Kennfunktionen in den Merkmalsvektor ist.\\
+Bei der Kennwertberechnung kann man verschiedene Ans\"atze verfolgen. So existieren Standardkennwerte zur Auswertung der Signalverl\"aufe. In dieser Arbeit wurden die Verfahren f\"ur die Kennwertberechnung aus den mehreren Quellen genommen. Die Wahl dieser Kennwerte muss hinsichtlich der Beitr\"age f\"ur eine Klassentrennung sinnvoll sein.
+
+\section{Kennwertberechnung aus dem Zeitbereich}
+
+\paragraph{}
+Die Berechnung von Kennwerten im Zeitbereich erfolgt mit direktem Bezug auf die Abtastwerte. Im Zeitverlauf eines Signals sind Unterschiede zwischen schadhaften und schadfreien Objekte zu verzeichnen. Bei der Implementierung von Kennwerten wurden \"Uberlegungen angestellt, diese Unterschiede zu erfassen.
+
+\paragraph{Spannweite der Schwingung (XSPA)\\}
+Eine hohe Spannweite (Schwingungsbreite) zwischen den positiven und negativen Extremwerten charakterisiert ein lautes Ger\"ausch. Die schadhaften Objekte weisen gr\"o\ss{}ere Spannweiten auf.
+
+\begin{equation}
+\mathit{XSPA}=\mathit{XMAX}-\mathit{XMIN}
+\end{equation}
+
+\paragraph{Gleichrichtwert (XGRW)\\}
+Der Gleichrichtwert ist der betragsm\"a\ss{}ige Mittelwert (Erwartungswert der Betr\"age). In der Ger\"auschanalyse stellt dieser Kennwert einen Pegelwert dar.
+
+\begin{equation}
+\mathit{XGRW} = \frac{1}{m}\sum_{i=1}^{m}|x^{(i)}|
+\end{equation}
+
+\paragraph{Effektivwert (XEFF)\\}
+Der Effektivwert liefert eine Aussage \"uber die Leistung des gesamten Signals.
+
+\begin{equation}
+\mathit{XEFF}=\sqrt{ \frac{1}{m}\sum_{i=1}^{m}(x^{(i)})^{2}}
+\end{equation}
+
+\paragraph{Formfaktor (FFAK)\\}
+Der Formfaktor (shape factor) ist eine verst\"arkungsunabh\"angiger Kennwert zur Beschreibung der Signalform. F\"ur eine Normalverteilung liegt dieser Kennwert bei etwa 1.25.
+
+\begin{equation}
+\mathit{FFAK}=\frac{\mathit{XEFF}}{\mathit{XGRW}}
+\end{equation}
+
+\section{Kennwertberechnung aus der Amplitudenverteilungsdichte}
+
+\paragraph{}
+Aus der Amplitudenverteilungsdichte (AVD) lassen sich Kennwerte berechnen, mit denen es m\"oglich ist, Wahrscheinlichkeitsaussagen \"uber die Verteilung zu treffen. W\"ahrend die Kennwerte der schadfreien Objekte ann\"ahernd der Normalverteilung gehorchen, weisen die Kennwerte der schadhaften Objekte eindeutige Abweichungen von der Normalvertelung auf. Diese Abweichungen k\"onnen mittels statistischer Kennwerte ermittelt werden. Die Berechnung der Kennwerte aus der AVD erfolgt mit Hilfe der Wahrscheinlichkeitsdichte $p^{(i)}$.
+
+\paragraph{Zentralmomente (MOM2, MOM3, MOM4), $\mu_{g}$\\}
+Dabei wird mit $\mu_{1}$ das erste Moment (arithmetischer Mittelwert) bezeichnet. F\"ur mittelwertfreie stochastische Schwingungen ist $\mu_{1}$ gleich Null. Aus den Zentralmomenten $\mu_{2}$ bis $\mu_{4}$ lassen sich weitere Kennwerte definieren, die die Verteilung beschreiben.
+
+\begin{equation}
+\mu_{g}=\sum_{i=1}^{m}p^{(i)}(i-\mu_{1})^{g}
+\end{equation}
+
+\paragraph{Schiefe (GAM1), $\Gamma_{1}$\\}
+Die Schiefe $\Gamma_{1}$ ist ein Ma\ss{} f\"ur die Symmetrie der Verteilung.
+
+\begin{equation} \label{eq:gam1}
+\Gamma_{1}=\frac{\mu_{3}}{(\sqrt{\mu_{2}})^{3}}
+\end{equation}
+
+\paragraph{Exzess (GAM2), $\Gamma_{2}$\\}
+Der Exzess $\Gamma_{2}$ gibt die Abweichung der Verteilung von der Normalverteilung an. F\"ur die schadfreie Objekte, deren AVD normalverteilt ist, liegt der Exzess bei 3. Er wird benutzt, um die Abweichung der AVD von der Normalverteilung zu erfassen.
+
+\begin{equation} \label{eq:gam2}
+\Gamma_{2}=\frac{\mu_{4}}{(\mu_{2})^{2}}
+\end{equation}
+
+\section{Kennwertberechnung aus dem Fourier-Bereich}
+
+\paragraph{}
+Ausgangspunkt f\"ur die Fourier-Kennwerte sind der Betrag der Daten nach der Fourier-Analyse. Die Diskrete Fourier-Transformation wird f\"ur die Bestimmung der in einem abgetasteten Signal haupts\"achlich vorkommenden Frequenzen verwendet (Bild \ref{fig:signalFourier}). Die Berechnung der Kennwerte aus dem Fourier-Bereich ist gleich wie aus der AVD, erfolgt mit Hilfe der Wahrscheinlichkeitsdichte $p^{(i)}$. Daraus lassen sich zwei Kennwerte berechnen: \textbf{Schiefe} (Gleichung \ref{eq:gam1}) und \textbf{Exzess} (Gleichung \ref{eq:gam2}).
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{signalInFourier}
+\caption{Umwandlung des Signals mit der DFT}
+\label{fig:signalFourier}
+\end{figure}
+
+\section{Kennwertberechnung aus dem ``Hill Pattern''}
+
+\paragraph{}
+Hill Pattern wurde in \cite{hills} entwickelt und noch in \cite{saowaluck} benutzt. Die Idee besteht darin, um  das urspr\"ungliche Signal mit dem Mittelwert zu vergleichen und dann einen neuen Wert zu jedem Punkt zu zuweisen (Bild \ref{fig:signalHills}):
+
+\begin{itemize}
+\item +1, wenn der Wert des Signals gr\"o\ss{}er als Mittelwert + Schwellwert ist;
+\item --1, wenn der Wert des Signals kleiner als Mittelwert -- Schwellwert ist;
+\item 0, wenn der Wert des Signals in [Mittelwert -- Schwellwert; Mittelwert + Schwellwert] liegt.
+\end{itemize}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{signalInHills}
+\caption{Umwandlung des Signals mit dem ``Hill Pattern''}
+\label{fig:signalHills}
+\end{figure}
+
+Im Ergebnis krieg man ``Hill Pattern'' von ``Spitzen'' und ``T\"aler'' in der Unterschrift des Fahrzeuges. In dieser Arbeit werden diese Merkmale \textbf{positive Spitzen} und \textbf{negative Spitzen} genannt.
+
+\section{Merkmalsnormierung}
+\paragraph{}
+Der Unterschied in den Wertebereichen der berechneten Kennwerte ist sehr gro\ss{}. Durch die Mischung der Kennwerte aus den verschiedenen Kennfunktionen haben die Komponenten des Merkmalsvektors unterschiedliche Dimensionen. Bei der Klassifikation kommt es darauf an, die Komponenten des Merkmalsvektors gleichberechtigt einzusetzen. Ziel von Normierungsma\ss{}nahmen ist es, den Wertebereich einiger Parameter auf einen vorgegebenen Wert oder Wertbereich zu bringen. Da\"ur gibt es zwei Techniken: Feature-Skalierung und Mittelwert-Normalisierung. Bei der Feature-Skalierung wird das Eingangsmerkmal durch den Bereich (d.h. Maximalwert minus Minimalwert) dividiert. Die Mittelwert-Normalisierung zieht Mittelwert des Eingangsmerkmal aus jedem Wert. Die beide Techniken k\"onnen als Gleichung \ref{eq:normierung} geschrieben werden:
+
+\begin{equation} \label{eq:normierung}
+x_i := \frac{x_i - \mu_i}{s_i},
+\end{equation}
+wobei $\mu_i$ der Durchschnitt von allen Werten ist, und $s_i$ Maximum minus Minimum oder Standardabweichung ist.
+
+\paragraph{}
+In dieser Arbeit und \cite{mekonnen92} wurden best\"atigt, dass eine Datennormierung zu verbesserten Klassifikationsergebnissen f\"uhrt. Bei der Normierung muss man darauf achten, dass die Teststichprobe mit der Lernstichprobe normiert wird, d.h. $\mu_i$ und $s_i$ in Gleichung \ref{eq:normierung} m\"ussen aus der Lernstichprobe bestimmt werden.

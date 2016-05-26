@@ -1,0 +1,162 @@
+\chapter{Algorithmen Beschreibung}
+
+\section{K-Means}
+
+\paragraph{}
+Der K-Means Algorithmus ist am beliebtesten und am h\"aufigste verwendeter Algorithmus f\"ur die automatische Gruppierung der Daten in die koh\"arenten Untermengen.
+
+\begin{enumerate}
+\item Initialisieren die Clusterzentren -- zuf\"allige $K$ Punkte aus der Stichprobe.
+\item Clusterzuordnung: jedes Muster wird zum n\"achsten Cluster geordnet, basierend auf dem Abstand zwischen dem Muster und dem Mittelpunkt vom Cluster.
+\item Bewegung des Mittelpunktes: die Mittelwerte f\"ur alle Punkte innerhalb jedes Clusters werden berechnet, dann werden die Clusterzentren auf diesen Durchschnitt verschoben.
+\item Wiederholen Sie 2. und 3. Schritte, bis wir unsere Clusters gefunden haben werden (Bild \ref{fig:kmeans}).
+\end{enumerate}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\textwidth]{KMeans}
+\caption{Darstellung von K-Means auf den 1. und 6. Iterationen}
+\label{fig:kmeans}
+\end{figure}
+
+K-Means kann im lokalen Optimum stecken. Um die Chance dieses Falls zu reduzieren, kann der Algorithmus auf der verschiedenen zuf\"alligen Initialisierungen ausgef\"uhrt werden.
+
+\paragraph{Optimierungsziel\\}
+Einf\"uhren wir die folgende Parameter:
+\begin{itemize}
+\item $c^{(i)}$ -- Index des Clusters (1, 2, \dots, $K$), zu dem der Muster $x^{(i)}$ aktuell zugeordnet wird
+\item $\mu_{k}$ -- Clusterzentrum $k$ ($\mu_{k} \in \mathbb{R}^{n}$)
+\item $\mu_{c^{(i)}}$  -- Clusterzentrum des Clusters, zu dem der Muster $x^{(i)}$ zugeordnet wird
+\end{itemize}
+
+Diese Variablen verwenden, k\"onnen wir unsere Kostenfunktion definieren:
+\begin{equation}
+J(c^{(i)},\dots,c^{(m)},\mu_1,\dots,\mu_K) = \frac{1}{m}\sum_{i=1}^m ||x^{(i)} - \mu_{c^{(i)}}||^2
+\end{equation}
+Unsere Optimierungsziel ist es, alle Parameter mit Hilfe der oben genannten Kostenfunktion zu minimieren: $min_{c,\mu}\ J(c,\mu)$. Bei dem 2. Schritt minimieren wir $J(\dots)$ mit $c^{(1)},\dots,c^{(m)}$ ($\mu_1,\dots,\mu_K$ sind fest). Bei dem 3. Schritt minimieren wir $J(\dots)$ mit $\mu_1,\dots,\mu_K$. Mit K-Means ist es nicht m\"oglich, dass die Kostenfunktion teilweise erh\"oht. Sie muss immer absteigen.
+
+
+\section{Neuronales Netz}
+
+\paragraph{}
+Neuronale Netze sind begrenzte Imitationen, wie unsere eigenen Gehirne arbeiten. Sie hatten ein gro\ss{}es Wiederaufleben in j\"ungster Zeit wegen der Fortschritte in der Computer-Hardware.
+Bei einer sehr einfachen Ebene sind Neuronen im Grunde die Recheneinheiten, die die Eing\"ange (Dendriten) als die elektrische Eingabe (so genannte ``Spikes'') verwenden, die zu den Ausg\"angen (Axone) geleitet werden.
+
+\paragraph{Modelldarstellung\\}
+Das Neuron l\"asst sich als ein Knoten (Bild \ref{fig:neuron}) darstellen. Es hat die Eingangsmerkmale $(x_1 \dots x_n)$ als Dendriten. Die Unit $x_0$ ist immer 1 gleich und wird ``Bias-Unit'' genannt. Der Einfluss der Eingabe auf das Neuron wird durch den Gewichtsvektor $\Theta$ gesteuert. Input einer Unit lassen sich als Formeln darstellen:
+\begin{equation}
+z=\sum^n_{i=1}\Theta_ix_i=\bar{\Theta}^T\bar{x}.
+\end{equation}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{neuron}
+\caption{Modell des Neurons}
+\label{fig:neuron}
+\end{figure}
+
+Die Ausgabe ist eine Aktivit\"atsfunktion oder eine Hypothese $h_{\Theta}(x)$, die stellt den Zusammenhang zwischen dem Netzinput und dem Aktivit\"atslevel eines Neurons dar. In dieser Arbeit wird die Sigmoidfunktion als Aktivit\"ats\-funktion benutzt:
+\begin{equation}
+g(z)=\frac{1}{1 + e^{-z}}.
+\end{equation}
+Sie wird in einem 2-dimensionalen Diagramm (Bild \ref{fig:sigmoid}) visualisiert, wobei auf der x-Achse der Netzinput der Einheit und auf der y-Achse der entsprechende Aktivit\"atslevel abgetragen wird.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{sigmoid}
+\caption{Sigmoidfunktion $g(z)$}
+\label{fig:sigmoid}
+\end{figure}
+
+Neuronale Netze bestehen aus mehreren Neuronen. Diese Neuronen k\"onnen Informationen nicht nur aus der Umwelt, aber auch von anderen Neuronen aufnehmen, und an andere Units oder die Umwelt in modifizierter Form weiterleiten. Als Beispiel wird ein Netz betrachtet, das aus der Eingangs-, verdeckten und Ausgangsschicht besteht (Bild \ref{fig:neuNetz}). Neuronen der verdeckten Schichten und der Ausgangsschicht werden wie $a_i^{(j)}$ gekennzeichnet, wobei $i$ die Nummer des Neurons ist und $j$ die Nummer der Schicht ist. $\Theta^{(j)}$ ist eine Gewichtsmatrix f\"ur den \"Ubergang von der $j$ auf die $j+1$ Schicht.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{neuralNetwork}
+\caption{Beispiel des Netzes}
+\label{fig:neuNetz}
+\end{figure}
+
+Die Werte der Knoten werden wie folgt erhalten:
+\begin{align*}
+&a_1^{(2)} = g(\Theta_{10}^{(1)}x_0 + \Theta_{11}^{(1)}x_1 + \Theta_{12}^{(1)}x_2 + \Theta_{13}^{(1)}x_3) \\
+&a_2^{(2)} = g(\Theta_{20}^{(1)}x_0 + \Theta_{21}^{(1)}x_1 + \Theta_{22}^{(1)}x_2 + \Theta_{23}^{(1)}x_3) \\
+&a_3^{(2)} = g(\Theta_{30}^{(1)}x_0 + \Theta_{31}^{(1)}x_1 + \Theta_{32}^{(1)}x_2 + \Theta_{33}^{(1)}x_3) \\
+&h_\Theta(x) = a_1^{(3)} = g(\Theta_{10}^{(2)}a_0^{(2)} + \Theta_{11}^{(2)}a_1^{(2)} + \Theta_{12}^{(2)}a_2^{(2)} + \Theta_{13}^{(2)}a_3^{(2)})
+\end{align*}
+
+Um Gewichtsmatrizen zu bestimmen, muss das Netz trainiert werden. In dieser Phase lernt das neuronale Netz anhand des vorgegebenen Lernmaterials. Dementsprechend werden in der Regel die Gewichte zwischen den einzelnen Neuronen modifiziert. In dieser Arbeit als Lernalregel wird Backpropagation verwendet.
+
+\paragraph{Kostenfunktion\\}
+Die Genauigkeit der Hypothesis kann durch die Kostenfunktion gemessen werden. F\"ur ihre Bestimmung werden die folgende Variablen eingef\"uhrt:
+\begin{itemize}
+\item $L$ -- Gesamtzahl der Schichten in dem Netzwerk
+\item $s_l$ -- Anzahl von Units (ohne Bias-Unit) in der Schicht $l$
+\item $K$ -- Anzahl von Output-Units/Klassen
+\end{itemize}
+Die Gleichung der Kostenfunktion hat die folgende Form:
+\begin{align}
+J(\Theta) = &- \frac{1}{m} \sum_{i=1}^m \sum_{k=1}^K \left[y^{(i)}_k \log ((h_\Theta (x^{(i)}))_k) + (1 - y^{(i)}_k)\log (1 - (h_\Theta(x^{(i)}))_k)\right] \nonumber \\
+&+ \frac{\lambda}{2m}\sum_{l=1}^{L-1} \sum_{i=1}^{s_l} \sum_{j=1}^{s_{l+1}} ( \Theta_{j,i}^{(l)})^2
+\end{align}
+
+\paragraph{Backpropagation\\}
+Bei Netzen mit Hidden-Units gibt es ein Problem, dass man keinen direkten Fehler f\"ur Neuronen der Hidden-Schicht bestimmen kann. Dieses Problem entsteht, weil man nur f\"ur die Output-Schicht, nicht aber f\"ur die Hidden-Schicht den gew\"unschten Output kennt und hieraus (zusammen mit dem tats\"achlichen Output) einen Fehlerterm ermitteln kann. Um dennoch eine Modifikation der Gewichte \"uber die entstehenden Fehlerterme vornehmen zu k\"onnen wird in der Trainingsphase jede Gewichtsver\"anderung in drei Schritte unterteilt:
+\begin{enumerate}
+\item Forward-Pass: Zun\"achst werden - wie in der Trainings- und der Testphase \"ublich - den Input-Neuronen Reize pr\"asentiert und sodann der Output des neuronalen Netzes berechnet.
+\item Fehlerbestimmung: In einem zweiten Schritt erfolgt die Fehlerbestimmung f\"ur die Output-Units, indem die gew\"unschten Output-Werte mit den im forward-pass tats\"achlich ermittelten Werten verglichen werden. Wenn die Fehler eine vorgegebene G\"uteschwelle \"uberschreiten, folgt der dritte Schritt. Sind die Fehler klein genug und \"uberschreiten die G\"uteschwelle nicht, kann die Trainingsphase abgebrochen werden.
+\item Backward-Pass: Der dritte Schritt ist der innovative Kern des Backpropagation Verfahrens. Die Fehlerterme breiten sich nun in entgegengesetzter Richtung bis zur Input-Schicht aus. Mit Hilfe dieser Fehlerterme werden nun nach und nach (d.h. zun\"achst zwischen Output und letzter Hidden-Schicht, dann zwischen letzter und vorletzter Hidden-Schicht usw.) die Gewichte des Netzes modifiziert so dass die Fehlerterme kleiner werden.
+\end{enumerate}
+
+\section{Dimensionsreduktion}
+
+\paragraph{}
+Es gibt zwei Gr\"unde, um Dimensionsreduktion zu verwenden:
+
+\begin{enumerate}
+\item Wir haben viele redundante Daten. Dimensionsreduktion wird die gesamte Daten, die im Rechnerspeicher speichern, reduzieren und den Lernalgorithmus beschleunigen.
+\item Visualisierung der Daten, die mehr als drei Dimensionen ist. Wir k\"onnen die Dimensionen unserer Daten zu drei oder weniger reduzieren, um es zu zeichnen.
+\end{enumerate}
+
+Wir brauchen neue Merkmale zu finden ($z_{1}$, $z_{2}$ und $z_{3}$, z.B.), die alle anderen Merkmale effektiv zusammenfassen k\"onnen.\\
+Der beliebtester Algorithmus der Dimensionsreduktion ist \textit{Principal Component Analysis (PCA)}.
+
+\paragraph{Problembeschreibung\\}
+Als Beispiel, es gibt zweidimensionaler Merkmalsraum, der aus $x_{1}$ und $x_{2}$ besteht. Man braucht eine Linie zu finden, die beide Merkmale gleichzeitig effektiv beschreibt. Daf\"ur muss man eine Richtung finden, darauf Daten zu projizieren, um den Projektions-Fehler zu minimieren.
+
+\paragraph{}
+PCA ist nicht lineare Regression (Bild \ref{fig:pcareg}). Bei der linearen Regression wird der quadrierte Fehler von jedem Punkt bis die Vorhersage Linie minimiert. Das ist der vertikale Abstand. Bei dem PCA Algorithmus der orthogonale Abstand wird minimiert. Wir nehmen die Merkmale und finden unter ihnen am n\"achsten gemeinsamen Datensatz. Wir versuchen, kein Ergebnis zu prognostizieren, und wir wenden keine Theta-Gewichte zu den Merkmalen.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\textwidth]{PCA}
+\caption{Unterschied zwischen dem PCA und der linearen Regression}
+\label{fig:pcareg}
+\end{figure}
+
+\paragraph{Algorithmus}
+
+\begin{enumerate}
+
+\item Berechnen ``Kovarianzmatrix''
+\begin{equation}
+\Sigma = \frac{1}{m}\sum^m_{i=1}(x^{(i)})(x^{(i)})^T
+\end{equation}
+$X$ ist eine $m \times n$ Matrix (die zeilenweise gespeicherte Muster), und das Produkt von denen wird eine $n \times n$ Matrix.
+
+\item Berechnen ``Eigenvektoren'' von Kovarianzmatrix $\Sigma$\\
+Dazu gibt es in Octave eine eingebaute Funktion, \textit{svd} oder `singular value decomposition' (Einzelwertzerlegung). Sie gibt drei Variable zur\"uck, aus der wir nur die erste, die Matrix U brauchen. 
+
+\item Projizieren die Daten auf die $k$ Eigenvektoren\\
+Aus der Matrix U werden die erste $k$ Spalten genommen, das wird $n \times k$ Matrix sein. Dann multiplizieren wir das mit der Merkmalsmatrix $X$. Als Ergebnis bekommen wir $n \times k$ Matrix $z$ -- die Projektion von $X$ auf den $k$-dimensionalen Raum.
+
+\end{enumerate}
+
+Zusammenfassend wird der gesamte Algorithmus in Listing \ref{lst:PCA} gr\"oblich beschrieben. Vor  der Anwendung des Algorithmus ist es wichtig, Merkmal Skalierung und mittlere Normalisierung zu machen (Gleichung \ref{eq:normierung}).
+
+\begin{lstlisting}[caption={PCA Algorithmus},label={lst:PCA}]
+Sigma = (1/m) * X' * X;  % Berechnung der Kovarianzmatrix
+[U,S,V] = svd(Sigma);    % Berechnung der projizierten Richtungen
+Ureduce = U(:,1:k);      % Nehmen die erste k Richtungen
+z = Ureduce' * x;        % Berechnung der projizierten Datenpunkte
+\end{lstlisting}
